@@ -1,92 +1,65 @@
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-
-import api from "../../services/api";
+import { useMovieDetails } from "../../hooks/useMovieDetails";
+import { useFavorites } from "../../hooks/useFavorites";
+import { BASE_IMAGE_URL } from "../../utils/constants";
+import Skeleton from "../../components/Skeleton";
 import "./filme-info.css";
 
 function Filme() {
   const { id } = useParams();
-  const navigate = useNavigate();
-  const [filme, setFilme] = useState({});
-  const [loading, setLoading] = useState(true);
+  const { movie, loading, error } = useMovieDetails(id);
+  const { isFavorite, toggleFavorite } = useFavorites();
 
-  useEffect(() => {
-    async function loadFilme() {
-      await api
-        .get(`/movie/${id}`, {
-          params: {
-            api_key: "28fc232cc001c31e8a031f419d0a14ca",
-            language: "pt-BR",
-          },
-        })
-        .then((response) => {
-          setFilme(response.data);
-          setLoading(false);
-        })
-        .catch(() => {
-          console.log("FILME NAO ENCONTRADO");
-          navigate("/", { replace: true });
-          return;
-        });
+  const handleToggleFavorite = () => {
+    const wasAdded = toggleFavorite(movie);
+    if (wasAdded) {
+      toast.success("Filme adicionado aos favoritos!");
+    } else {
+      toast.info("Filme removido dos favoritos!");
     }
+  };
 
-    loadFilme();
-
-    return () => {
-      console.log("COMPONENTE FOI DESMONTADO");
-    };
-  }, [navigate, id]);
-
-  function salvarFilme() {
-    const minhaLista = localStorage.getItem("@primeflix");
-
-    let filmesSalvos = JSON.parse(minhaLista) || [];
-
-    const hasFilme = filmesSalvos.some(
-      (filmesSalvo) => filmesSalvo.id === filme.id
-    );
-
-    if (hasFilme) {
-      toast.info("Você já possui esse filme salvo!");
-      return;
-    }
-
-    filmesSalvos.push(filme);
-    localStorage.setItem("@primeflix", JSON.stringify(filmesSalvos));
-
-    toast.success("Filme salvo com sucesso!");
-  }
-
-  if (loading) {
+  if (error) {
     return (
-      <div className="filme-info">
-        <h1>Carregando detalhes...</h1>
+      <div className="error-container">
+        <h2>Ops! Filme não encontrado</h2>
+        <p>{error}</p>
       </div>
     );
   }
 
+  if (loading) {
+    return <Skeleton type="detail" />;
+  }
+
   return (
     <div className="filme-info">
-      <h1>{filme.title}</h1>
+      <h1>{movie.title}</h1>
       <img
-        src={`https://image.tmdb.org/t/p/original/${filme.backdrop_path}`}
-        alt={filme.title}
+        src={`${BASE_IMAGE_URL}/${movie.backdrop_path}`}
+        alt={movie.title}
       />
 
       <h3>Sinopse</h3>
-      <span>{filme.overview}</span>
+      <span>{movie.overview}</span>
 
-      <strong>Avalição: {filme.vote_average} / 10</strong>
+      <strong>Avaliação: {movie.vote_average.toFixed(1)} / 10</strong>
 
       <div className="area-buttons">
-        <button onClick={salvarFilme}>Salvar</button>
+        <button
+          onClick={handleToggleFavorite}
+          className={isFavorite(movie.id) ? "favorited" : ""}
+        >
+          {isFavorite(movie.id) ? "⭐ Remover dos Favoritos" : "⭐ Salvar nos Favoritos"}
+        </button>
         <button>
           <a
             target="_blank"
-            href={`https://youtube.com/results?search_query=${filme.title} Trailer`}
+            rel="noopener noreferrer"
+            href={`https://youtube.com/results?search_query=${encodeURIComponent(movie.title)} Trailer`}
           >
-            Trailer
+            🎬 Ver Trailer
           </a>
         </button>
       </div>
