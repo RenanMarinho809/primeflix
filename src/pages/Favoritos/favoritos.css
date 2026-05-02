@@ -1,113 +1,37 @@
 .meus-filmes {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 20px;
   text-align: center;
+  margin-top: 12px;
 }
 
 .meus-filmes h1 {
-  margin-bottom: 30px;
-  font-size: 32px;
-  color: #333;
+  margin-bottom: 14px;
 }
 
-.empty-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 60px 20px;
-  gap: 20px;
+.meus-filmes span {
+  font-size: 18px;
 }
 
-.empty-state span {
-  font-size: 20px;
-  color: #666;
+.meus-filmes ul {
+  width: 720px;
 }
 
-.back-link {
-  text-decoration: none;
-  color: #fff;
-  background-color: #116feb;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-size: 16px;
-  transition: background-color 0.3s;
-}
-
-.back-link:hover {
-  background-color: #0e5ac7;
-}
-
-.favorites-list {
+.meus-filmes ul li {
   list-style: none;
-  padding: 0;
   display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.favorite-item {
-  display: flex;
+  justify-content: space-between;
   align-items: center;
-  background: #fff;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  gap: 20px;
-  text-align: left;
+  margin-bottom: 14px;
 }
 
-.favorite-poster {
-  width: 100px;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 8px;
-}
-
-.favorite-info {
-  flex: 1;
+.meus-filmes div {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  justify-content: center;
+  align-items: center;
 }
 
-.favorite-info h3 {
-  margin: 0;
-  font-size: 22px;
-  color: #333;
-}
-
-.favorite-actions {
-  display: flex;
-  gap: 12px;
-}
-
-.details-btn {
+.meus-filmes div a {
   text-decoration: none;
-  color: #fff;
-  background-color: #116feb;
-  padding: 10px 20px;
-  border-radius: 6px;
-  font-size: 14px;
-  transition: background-color 0.3s;
-}
-
-.details-btn:hover {
-  background-color: #0e5ac7;
-}
-
-.delete-btn {
-  background-color: #e74c3c;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 6px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.delete-btn:hover {
-  background-color: #c0392b;
+  color: #116feb;
+  margin-right: 14px;
+  font-size: 16px;
 }

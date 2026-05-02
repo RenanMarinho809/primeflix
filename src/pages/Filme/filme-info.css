@@ -25,12 +25,6 @@
 
 .filme-info span {
   margin: 8px 0;
-  line-height: 1.6;
-}
-
-.filme-info strong {
-  margin: 10px 0;
-  font-size: 18px;
 }
 
 .area-buttons button {
@@ -41,51 +35,23 @@
   font-size: 20px;
   border: 0;
   outline: none;
-  padding: 12px 24px;
-  border-radius: 8px;
+  padding: 12px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: all 0.3s;
-  background-color: #116feb;
-  color: #fff;
+  transition: all 0.5s;
 }
 
 .area-buttons button:hover {
-  background-color: #0e5ac7;
-  transform: scale(1.05);
-}
-
-.area-buttons button.favorited {
-  background-color: #e74c3c;
-}
-
-.area-buttons button.favorited:hover {
-  background-color: #c0392b;
+  background-color: brown;
+  color: #fff;
 }
 
 .area-buttons a {
   text-decoration: none;
-  color: #fff;
-  transition: all 0.3s;
+  color: #000;
+  transition: all 0.5s;
 }
 
 .area-buttons a:hover {
   color: #fff;
-}
-
-.error-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 60px 20px;
-  text-align: center;
-}
-
-.error-container h2 {
-  color: #e74c3c;
-  margin-bottom: 10px;
-}
-
-.error-container p {
-  color: #666;
 }
