@@ -1,13 +1,44 @@
-.lista-filmes {
+.container {
   max-width: 800px;
-  margin: 14px auto;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-.loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 14px;
+.search-container {
+  margin-bottom: 24px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 14px 18px;
+  font-size: 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.search-input:focus {
+  border-color: #116feb;
+}
+
+.lista-filmes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.error-state,
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+}
+
+.error-state h2,
+.empty-state h2 {
+  margin-bottom: 12px;
+  color: #333;
 }
 
 .lista-filmes article {
@@ -15,6 +46,12 @@
   background-color: #fff;
   padding: 15px;
   border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.lista-filmes article:hover {
+  transform: translateY(-4px);
 }
 
 .lista-filmes strong {
@@ -25,8 +62,7 @@
 }
 
 .lista-filmes img {
-  width: 900px;
-  max-width: 100%;
+  width: 100%;
   max-height: 340px;
   object-fit: cover;
   display: block;
@@ -44,4 +80,9 @@
   color: #fff;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+.lista-filmes a:hover {
+  background-color: #0e5ac4;
 }

@@ -1,48 +1,47 @@
-import { useEffect, useState } from "react";
-import "./favoritos.css";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useFavorites } from "../../hooks/useFavorites";
+import { BASE_IMAGE_URL } from "../../utils/constants";
+import "./favoritos.css";
 
 function Favoritos() {
-  const [filmes, setFilmes] = useState([]);
+  const { favorites, removeFavorite } = useFavorites();
 
-  useEffect(() => {
-    const minhaLista = localStorage.getItem("@primeflix");
-    setFilmes(JSON.parse(minhaLista) || []);
-  }, []);
-
-  function excluirFilme(id) {
-    let filtroFilmes = filmes.filter((item) => {
-      return item.id !== id;
-    });
-
-    setFilmes(filtroFilmes);
-    localStorage.setItem("@primeflix", JSON.stringify(filtroFilmes));
-
-    toast.success("Filme excluido com sucesso!");
-  }
+  const handleExcluirFilme = (id) => {
+    removeFavorite(id);
+    toast.success("Filme excluído com sucesso!");
+  };
 
   return (
     <div className="meus-filmes">
-      <h1>Meus Filmes</h1>
+      <h1>Meus Filmes Favoritos</h1>
 
-      {filmes.length === 0 && (
-        <span>Você não possui nenhum filme salvo :(</span>
-      )}
-
-      <ul>
-        {filmes.map((item) => {
-          return (
-            <li key={item.id}>
-              <span>{item.title}</span>
-              <div>
-                <Link to={`/filme/${item.id}`}>Ver Detalhes</Link>
-                <button onClick={() => excluirFilme(item.id)}>Excluir</button>
+      {favorites.length === 0 ? (
+        <div className="empty-favorites">
+          <h2>Você não possui nenhum filme salvo 😢</h2>
+          <Link to="/" className="back-home">Voltar para Home</Link>
+        </div>
+      ) : (
+        <div className="favorites-list">
+          {favorites.map((item) => (
+            <div key={item.id} className="favorite-card">
+              <img
+                src={`${BASE_IMAGE_URL}/${item.poster_path}`}
+                alt={item.title}
+                className="favorite-poster"
+                loading="lazy"
+              />
+              <div className="favorite-info">
+                <h3>{item.title}</h3>
+                <div className="favorite-actions">
+                  <Link to={`/filme/${item.id}`} className="view-details">Ver Detalhes</Link>
+                  <button onClick={() => handleExcluirFilme(item.id)} className="remove-btn">Excluir</button>
+                </div>
               </div>
-            </li>
-          );
-        })}
-      </ul>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

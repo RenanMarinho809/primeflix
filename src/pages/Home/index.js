@@ -1,55 +1,72 @@
-import { useEffect, useState } from "react";
-import api from "../../services/api";
+import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
-
+import { useMovies } from "../../hooks/useMovies";
+import { debounce } from "../../utils/debounce";
+import { MovieCardSkeleton } from "../../components/Skeleton";
+import { BASE_IMAGE_URL } from "../../utils/constants";
 import "./home.css";
 
 function Home() {
-  const [filmes, setFilmes] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [searchInput, setSearchInput] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const { movies, loading, error } = useMovies(searchQuery);
 
-  useEffect(() => {
-    async function loadingFilmes() {
-      const response = await api.get("movie/now_playing", {
-        params: {
-          api_key: "d035c82a4e9c82e90cf592ee503fbfb9",
-          language: "pt-BR",
-          page: 1,
-        },
-      });
+  const handleSearch = useMemo(
+    () =>
+      debounce((query) => {
+        setSearchQuery(query);
+      }, 500),
+    []
+  );
 
-      // setFilmes(response.data.results);
-      // console.log(response);
-      setFilmes(response.data.results.slice(0, 10));
-      setLoading(false);
-    }
+  const handleInputChange = (e) => {
+    setSearchInput(e.target.value);
+    handleSearch(e.target.value);
+  };
 
-    loadingFilmes();
-  }, []);
-
-  if (loading) {
+  if (error) {
     return (
-      <div className="loading">
-        <h2>Carregando filmes...</h2>
+      <div className="error-state">
+        <h2>{error}</h2>
+        <p>Tente novamente mais tarde.</p>
       </div>
     );
   }
 
   return (
     <div className="container">
+      <div className="search-container">
+        <input
+          type="text"
+          placeholder="Buscar filmes..."
+          value={searchInput}
+          onChange={handleInputChange}
+          className="search-input"
+        />
+      </div>
       <div className="lista-filmes">
-        {filmes.map((filme) => {
-          return (
+        {loading ? (
+          Array.from({ length: 6 }).map((_, index) => (
+            <MovieCardSkeleton key={index} />
+          ))
+        ) : movies.length === 0 ? (
+          <div className="empty-state">
+            <h2>Nenhum filme encontrado</h2>
+            <p>Tente buscar por outro título.</p>
+          </div>
+        ) : (
+          movies.map((filme) => (
             <article key={filme.id}>
               <strong>{filme.title}</strong>
               <img
-                src={`https://image.tmdb.org/t/p/original/${filme.poster_path}`}
+                src={`${BASE_IMAGE_URL}/${filme.poster_path}`}
                 alt={filme.title}
+                loading="lazy"
               />
               <Link to={`/filme/${filme.id}`}>Acessar</Link>
             </article>
-          );
-        })}
+          ))
+        )}
       </div>
     </div>
   );
