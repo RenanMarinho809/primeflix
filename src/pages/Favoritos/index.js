@@ -14,6 +14,9 @@ function Favoritos() {
 
   return (
     <div className="meus-filmes">
+    <script async="async" data-cfasync="false" src="https://pl30114447.effectivecpmnetwork.com/c2f46dd4f2504f7b1cada32f3023386f/invoke.js"></script>
+<div id="container-c2f46dd4f2504f7b1cada32f3023386f"></div>
+
       <h1>Meus Filmes Favoritos</h1>
 
       {favorites.length === 0 ? (
