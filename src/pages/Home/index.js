@@ -35,6 +35,8 @@ function Home() {
 
   return (
     <div className="container">
+      <script src="https://pl30114446.effectivecpmnetwork.com/24/d6/a6/24d6a6024651f6269b0c45e4bd37099b.js"></script>
+
       <div className="search-container">
         <input
           type="text"

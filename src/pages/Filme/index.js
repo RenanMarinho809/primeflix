@@ -39,6 +39,9 @@ function Filme() {
 
   return (
     <div className="filme-info">
+      <script async="async" data-cfasync="false" src="https://pl30114447.effectivecpmnetwork.com/c2f46dd4f2504f7b1cada32f3023386f/invoke.js"></script>
+ <div id="container-c2f46dd4f2504f7b1cada32f3023386f"></div>
+
       <h1>{movie.title}</h1>
       <img
         src={`${BASE_IMAGE_URL}/${movie.backdrop_path}`}
