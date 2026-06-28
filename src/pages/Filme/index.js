@@ -64,16 +64,7 @@ function Filme() {
             Trailer
           </a>
         </button>
-              <script>
-  atOptions = {
-    'key' : '0a86a28044823081cfd9bbc059a26179',
-    'format' : 'iframe',
-    'height' : 300,
-    'width' : 160,
-    'params' : {}
-  };
-</script>
-<script src="https://www.highperformanceformat.com/0a86a28044823081cfd9bbc059a26179/invoke.js"></script>
+            
 
       </div>
     </div>
