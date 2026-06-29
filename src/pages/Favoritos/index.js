@@ -14,9 +14,6 @@ function Favoritos() {
 
   return (
     <div className="meus-filmes">
-      <script src="https://pl30114449.effectivecpmnetwork.com/31/9c/a5/319ca5fabeac591e74fd31fd5ef0b2ba.js"></script>
-
-      <h1>Meus Filmes Favoritos</h1>
 
       {favorites.length === 0 ? (
         <div className="empty-favorites">
